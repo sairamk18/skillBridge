@@ -12,33 +12,33 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Wellness() {
-  const [userInput, setUserInput] = useState("");
-  const [moodAnalysis, setMoodAnalysis] = useState("");
+  const [text, setText] = useState("");
+  const [sentiment, setSentiment] = useState("");
 
-  const analyzeMood = async () => {
-    const result = await getWellnessCheck(userInput);
-    setMoodAnalysis(result);
+  const fetchSentiment = async () => {
+    const result = await getWellnessCheck(text);
+    setSentiment(result);
   };
 
   return (
     <Card sx={{ maxWidth: 600, mx: "auto", mt: 3, p: 2, boxShadow: 3 }}>
       <CardContent>
         <Typography variant="h5" color="error" gutterBottom>
-          <FavoriteIcon /> Mental Wellness Check-In
+          <FavoriteIcon /> Mental Wellness Check
         </Typography>
         <TextField
           fullWidth
           multiline
           rows={3}
-          label="How are you feeling today?"
+          label="Write How You Feel..."
           variant="outlined"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           sx={{ mb: 2 }}
         />
-        {moodAnalysis && (
+        {sentiment && (
           <Box mt={2} p={2} bgcolor="#f3f3f3" borderRadius={2}>
-            <Typography variant="body1">{moodAnalysis}</Typography>
+            <Typography variant="body1">{sentiment}</Typography>
           </Box>
         )}
       </CardContent>
@@ -47,7 +47,7 @@ export default function Wellness() {
           variant="contained"
           color="error"
           fullWidth
-          onClick={analyzeMood}
+          onClick={fetchSentiment}
         >
           Analyze Mood
         </Button>
